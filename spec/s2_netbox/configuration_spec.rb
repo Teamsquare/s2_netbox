@@ -154,4 +154,34 @@ describe S2Netbox::Configuration do
       end
     end
   end
+
+  describe 'sign_with_mac' do
+    context 'when using username and password' do
+      subject { S2Netbox::Configuration.new }
+
+      before :each do
+        subject.controller_url = 'http://some.net'
+        subject.username = 'testing'
+        subject.password = 'testing'
+      end
+
+      it 'should be false' do
+        expect(subject.sign_with_mac?).to eq(false)
+      end
+    end
+
+    context 'when using sha_password' do
+      subject { S2Netbox::Configuration.new }
+
+      before :each do
+        subject.controller_url = 'http://some.net'
+        subject.sha_password = 'testing'
+
+      end
+
+      it 'should be true' do
+        expect(subject.sign_with_mac?).to eq(true)
+      end
+    end
+  end
 end

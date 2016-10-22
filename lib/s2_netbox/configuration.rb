@@ -11,6 +11,10 @@ class S2Netbox::Configuration
     @password = nil
   end
 
+  def sign_with_mac?
+    !blank?(sha_password)
+  end
+
   def validate!
     validate_controller_url!
 
