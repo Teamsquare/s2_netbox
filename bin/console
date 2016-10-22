@@ -1,14 +1,13 @@
 #!/usr/bin/env ruby
 
-require "bundler/setup"
-require "s2_netbox"
+require 'irb'
+require 'irb/completion'
+require 'bundler/setup'
+require 's2_netbox'
 
-# You can add fixtures and/or initialization code here to make experimenting
-# with your gem easier. You can also use a different console, if you like.
+IRB.conf[:PROMPT_MODE] = :SIMPLE
+IRB.conf[:AUTO_INDENT] = true
 
-# (If you use this, don't forget to add pry to your Gemfile!)
-# require "pry"
-# Pry.start
+puts 'Loaded S2 NetBox wrapper'
 
-require "irb"
 IRB.start
