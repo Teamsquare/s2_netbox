@@ -1,4 +1,6 @@
 class S2Netbox::Configuration
+  include S2Netbox::Helpers
+
   attr_accessor :controller_url
   attr_accessor :sha_password
   attr_accessor :username
@@ -49,9 +51,5 @@ class S2Netbox::Configuration
     if blank? value
       raise S2Netbox::Errors::ConfigurationError.new message
     end
-  end
-
-  def blank?(value)
-    value.nil? || value.length == 0
   end
 end
