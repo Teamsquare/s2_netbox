@@ -10,6 +10,7 @@ SimpleCov.start 'rails'
 $LOAD_PATH.unshift File.expand_path('../../lib', __FILE__)
 require 's2_netbox'
 require 'webmock/rspec'
+require 'factory_girl'
 
 Dir["#{File.expand_path('../../', __FILE__)}/spec/support/**/*.rb"].each { |file| require file }
 

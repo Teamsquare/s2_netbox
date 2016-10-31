@@ -8,6 +8,8 @@ require 's2_netbox/errors/configuration_error'
 
 require 's2_netbox/configuration'
 
+require 's2_netbox/api_response'
+
 require 's2_netbox/authentication'
 require 's2_netbox/api_version'
 
@@ -47,8 +49,6 @@ module S2Netbox
       response = http.request(req)
     }
 
-    puts "Request: #{req.body}"
-    puts "Response #{response.body}"
-    req
+    S2Netbox::ApiResponse.new(req.body, response.body )
   end
 end
