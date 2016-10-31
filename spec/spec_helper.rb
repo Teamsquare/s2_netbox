@@ -9,7 +9,14 @@ SimpleCov.start 'rails'
 
 $LOAD_PATH.unshift File.expand_path('../../lib', __FILE__)
 require 's2_netbox'
+require 'webmock/rspec'
+
+Dir["#{File.expand_path('../../', __FILE__)}/spec/support/**/*.rb"].each { |file| require file }
 
 RSpec.configure do |config|
   config.order = 'random'
+
+  config.include ConfigurationHelper
 end
+
+WebMock.disable_net_connect!(:allow_localhost => true)
