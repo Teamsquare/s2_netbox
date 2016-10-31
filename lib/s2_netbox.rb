@@ -8,6 +8,7 @@ require 's2_netbox/errors/configuration_error'
 
 require 's2_netbox/configuration'
 
+require 's2_netbox/authentication'
 require 's2_netbox/api_version'
 
 module S2Netbox
@@ -40,13 +41,14 @@ module S2Netbox
     req.body = "APIcommand=<NETBOX-API#{blank?(session_id) ? '' : " sessionid='#{session_id}'"}>#{command}</NETBOX-API>"
     req.content_type = 'text/xml'
 
-    puts req.to_s
+    response = nil
 
     Net::HTTP.start(uri.hostname, uri.port, :use_ssl => uri.scheme == 'https' ) {|http|
       response = http.request(req)
-      puts response.body
     }
 
+    puts "Request: #{req.body}"
+    puts "Response #{response.body}"
     req
   end
 end
