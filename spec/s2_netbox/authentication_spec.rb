@@ -4,14 +4,19 @@ describe S2Netbox::Authentication do
 
   before :each do
     configure
-  end
 
-  it 'should' do
     stub_request(:post, "https://test-s2.some.net/goforms/nbapi").
         with(:body => "APIcommand=<NETBOX-API><COMMAND name='Login' num='1'><PARAMS><USERNAME>some_password</USERNAME><PASSWORD>some_password</PASSWORD></PARAMS></COMMAND></NETBOX-API>").
-        to_return(:status => 200, :body => "<RESPONSE></RESPONSE>", :headers => {})
+        to_return(:status => 200, :body => "<NETBOX sessionid='255385874'><RESPONSE command='Login' num='1'><CODE>SUCCESS</CODE></RESPONSE></NETBOX>", :headers => {})
 
-    expect(S2Netbox::Authentication.login).to eq('true')
+    @result = S2Netbox::Authentication.login
+  end
 
+  it 'should be a S2Netbox::ApiResponse' do
+    expect(@result).to be_a(S2Netbox::ApiResponse)
+  end
+
+  it 'should return the correct session_id' do
+    expect(@result.session_id).to eq('255385874')
   end
 end
