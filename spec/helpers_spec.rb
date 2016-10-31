@@ -44,6 +44,14 @@ describe S2Netbox do
       })).to eq "<COMMAND name='Login' num='1'><PARAMS><USERNAME>test</USERNAME><PASSWORD>a_password</PASSWORD></PARAMS></COMMAND>"
     end
   end
+
+  describe 'map_attributes' do
+    it 'converts attributes to S2 naming convention' do
+      expect(@dummy_class.map_attributes(
+          {:first_name => 'Michael', :lastname => 'Shimmins', :'ACT_DATE' => '10/10/2016', :'EXPDATE' => '20/12/2016'}
+      )).to eq({'FIRSTNAME' => 'Michael', 'LASTNAME' => 'Shimmins', 'ACTDATE' => '10/10/2016', 'EXPDATE' => '20/12/2016'})
+    end
+  end
 end
 
 class DummyClass

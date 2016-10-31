@@ -33,6 +33,10 @@ module S2Netbox::Helpers
     def build_command(name, params=nil)
       "<COMMAND name='#{name}' num='1'>#{params ? build_params(params) : ''}</COMMAND>"
     end
+
+    def map_attributes(attributes)
+      attributes.reject { |_,v| blank?(v) }.map { |k, v| [k.to_s.gsub('_', '').upcase, v] }.to_h
+    end
   end
 
   def blank?(value)
@@ -45,5 +49,9 @@ module S2Netbox::Helpers
 
   def build_command(name, params=nil)
     self.class.build_command(name, params)
+  end
+
+  def map_attributes(attributes)
+    self.class.map_attributes(attributes)
   end
 end
