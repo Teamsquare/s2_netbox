@@ -1,4 +1,4 @@
-class S2Netbox::Person
+class S2Netbox::Person < S2Netbox::ApiRequest
   include S2Netbox::Helpers
 
   def self.add(attributes={}, access_levels=[], user_defined_fields=[])
@@ -11,6 +11,16 @@ class S2Netbox::Person
 
     send_request('ModifyPerson', person_attributes)
   end
+
+  def self.supported_operations
+    ['add_credential']
+  end
+
+  def self.command_map
+    {:add_credential => 'AddCredential'}
+  end
+
+  protected
 
   def self.build_attributes(attributes, access_levels, user_defined_fields)
     hash = map_attributes(attributes)
@@ -34,11 +44,5 @@ class S2Netbox::Person
     end
 
     hash
-  end
-
-  protected
-
-  def self.send_request(command_name, attributes)
-    S2Netbox.request(S2Netbox::BASIC_ENDPOINT, build_command(command_name, attributes))
   end
 end
