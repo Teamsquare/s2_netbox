@@ -8,6 +8,7 @@ require 's2_netbox/errors/configuration_error'
 
 require 's2_netbox/configuration'
 
+require 's2_netbox/api_request'
 require 's2_netbox/api_response'
 
 require 's2_netbox/authentication'
