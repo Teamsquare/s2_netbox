@@ -13,11 +13,11 @@ class S2Netbox::Person < S2Netbox::ApiRequest
   end
 
   def self.supported_operations
-    ['add_credential']
+    ['add_credential', 'modify_credential']
   end
 
   def self.command_map
-    {:add_credential => 'AddCredential'}
+    {:add_credential => 'AddCredential', :modify_credential => 'ModifyCredential'}
   end
 
   protected
