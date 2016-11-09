@@ -8,13 +8,7 @@ class S2Netbox::ApiRequest
   def self.method_missing(method_name, *arguments, &block)
     return super unless supported_operations.include?(method_name.to_s)
 
-    puts "Raw Args passed ot method_missing #{arguments}"
-
-    mapped_args = map_attributes(arguments[0])
-
-    puts "Mapped args: #{mapped_args}"
-
-    send_request(command_for_method(method_name), mapped_args)
+    send_request(command_for_method(method_name), map_attributes(arguments[0]))
   end
 
   def self.respond_to_missing?(method_name, include_private = false)
