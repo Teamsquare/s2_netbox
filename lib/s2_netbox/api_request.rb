@@ -3,8 +3,6 @@ require 'facets/string/titlecase'
 class S2Netbox::ApiRequest
   include S2Netbox::Helpers
 
-  attr_accessor :provided_commands
-
   def self.provides_command(*command_names)
     define_singleton_method(:supported_operations) do
       Array.wrap(command_names)
