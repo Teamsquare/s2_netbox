@@ -12,14 +12,6 @@ class S2Netbox::Commands::Person < S2Netbox::ApiRequest
     send_request('ModifyPerson', person_attributes, session_id)
   end
 
-  def self.supported_operations
-    ['add_credential', 'modify_credential']
-  end
-
-  def self.command_map
-    {:add_credential => 'AddCredential', :modify_credential => 'ModifyCredential'}
-  end
-
   protected
 
   def self.build_attributes(attributes, access_levels, user_defined_fields)

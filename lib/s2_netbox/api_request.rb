@@ -31,7 +31,7 @@ class S2Netbox::ApiRequest
     if command_map && command_map[method_name]
       return command_map[method_name]
     else
-      return "#{name.split('::').last}#{method_name.to_s.gsub('_', ' ').titlecase.gsub(' ', '')}"
+      return "#{method_name.to_s.gsub('_', ' ').titlecase.gsub(' ', '')}#{name.split('::').last}"
     end
   end
 

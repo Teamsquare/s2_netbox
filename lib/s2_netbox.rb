@@ -15,6 +15,7 @@ require 's2_netbox/api_response'
 require 's2_netbox/commands/authentication'
 require 's2_netbox/commands/api_version'
 require 's2_netbox/commands/person'
+require 's2_netbox/commands/credential'
 
 module S2Netbox
   include S2Netbox::Helpers
