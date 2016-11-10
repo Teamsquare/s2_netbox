@@ -3,12 +3,20 @@ require 'facets/string/titlecase'
 class S2Netbox::ApiRequest
   include S2Netbox::Helpers
 
+  attr_accessor :provided_commands
+
+  def self.provides_command(*command_names)
+    define_singleton_method(:supported_operations) do
+      Array.wrap(command_names)
+    end
+  end
+
   def self.send_request(command_name, attributes, session_id=nil)
     S2Netbox.request(S2Netbox::BASIC_ENDPOINT, build_command(command_name, attributes), session_id)
   end
 
   def self.method_missing(method_name, *arguments, &block)
-    return super unless supported_operations.include?(method_name.to_s)
+    return super unless supported_operations.include?(method_name)
 
     send_request(command_for_method(method_name), map_attributes(arguments[0]), arguments[1])
   end
@@ -17,10 +25,6 @@ class S2Netbox::ApiRequest
     return true if supported_operations.include?(method_name.to_s)
 
     super
-  end
-
-  def self.supported_operations
-    []
   end
 
   def self.command_map
