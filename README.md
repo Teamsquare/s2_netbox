@@ -1,3 +1,8 @@
+[![CircleCI](https://circleci.com/gh/teamsquare/s2_netbox/tree/develop.svg?style=svg)](https://circleci.com/gh/teamsquare/s2_netbox/tree/develop)
+[![Code Climate](https://codeclimate.com/github/teamsquare/s2_netbox/badges/gpa.svg)](https://codeclimate.com/github/teamsquare/s2_netbox)
+[![Test Coverage](https://codeclimate.com/github/teamsquare/s2_netbox/badges/coverage.svg)](https://codeclimate.com/github/teamsquare/s2_netbox/coverage)
+[![Issue Count](https://codeclimate.com/github/teamsquare/s2_netbox/badges/issue_count.svg)](https://codeclimate.com/github/teamsquare/s2_netbox)
+
 This gem provides Ruby bindings to the [S2 NetBox](http://s2sys.com/products/access-control-systems/netbox/) API for [S2 Security Systems](http://s2sys.com/) products.
 # Currently Supported API methods
 This Gem has been written pretty specifically for the needs of Teamsquare's internal management systems.
