@@ -81,14 +81,14 @@ describe S2Netbox::Commands::Person do
       configure
 
       stub_request(:post, "https://test-s2.some.net/goforms/nbapi").
-          with(:body => "APIcommand=<NETBOX-API><COMMAND name='ModifyCredential' num='1'><PARAMS><ENCODEDNUM>8232</ENCODEDNUM><CARDFORMAT>26 bit Wiegand</CARDFORMAT><DISABLED>1</DISABLED></PARAMS></COMMAND></NETBOX-API>").
+          with(:body => "APIcommand=<NETBOX-API sessionid='session_id'><COMMAND name='ModifyCredential' num='1'><PARAMS><ENCODEDNUM>8232</ENCODEDNUM><CARDFORMAT>26 bit Wiegand</CARDFORMAT><DISABLED>1</DISABLED></PARAMS></COMMAND></NETBOX-API>").
           to_return(:status => 200, :body => "<NETBOX><RESPONSE command='ModifyCredential' num=\"1\"><CODE>SUCCESS</CODE></RESPONSE></NETBOX>", :headers => {})
 
       @result = S2Netbox::Commands::Person.modify_credential({
                                                     :encodednum => '8232',
                                                     :card_format => '26 bit Wiegand',
                                                     :disabled => '1'
-                                                })
+                                                }, 'session_id')
     end
 
     it 'should be a S2Netbox::ApiResponse' do

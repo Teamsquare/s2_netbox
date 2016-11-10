@@ -3,14 +3,14 @@ require 'facets/string/titlecase'
 class S2Netbox::ApiRequest
   include S2Netbox::Helpers
 
-  def self.send_request(command_name, attributes)
-    S2Netbox.request(S2Netbox::BASIC_ENDPOINT, build_command(command_name, attributes))
+  def self.send_request(command_name, attributes, session_id=nil)
+    S2Netbox.request(S2Netbox::BASIC_ENDPOINT, build_command(command_name, attributes), session_id)
   end
 
   def self.method_missing(method_name, *arguments, &block)
     return super unless supported_operations.include?(method_name.to_s)
 
-    send_request(command_for_method(method_name), map_attributes(arguments[0]))
+    send_request(command_for_method(method_name), map_attributes(arguments[0]), arguments[1])
   end
 
   def self.respond_to_missing?(method_name, include_private = false)

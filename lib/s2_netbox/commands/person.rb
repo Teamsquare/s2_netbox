@@ -1,15 +1,15 @@
 class S2Netbox::Commands::Person < S2Netbox::ApiRequest
   include S2Netbox::Helpers
 
-  def self.add(attributes={}, access_levels=[], user_defined_fields=[])
-    send_request('AddPerson', build_attributes(attributes, access_levels, user_defined_fields))
+  def self.add(attributes={}, access_levels=[], user_defined_fields=[], session_id=nil)
+    send_request('AddPerson', build_attributes(attributes, access_levels, user_defined_fields), session_id)
   end
 
-  def self.modify(person_id, attributes={}, access_levels=[], user_defined_fields=[])
+  def self.modify(person_id, attributes={}, access_levels=[], user_defined_fields=[], session_id=nil)
     person_attributes = build_attributes(attributes, access_levels, user_defined_fields)
     person_attributes['PERSONID'] = person_id
 
-    send_request('ModifyPerson', person_attributes)
+    send_request('ModifyPerson', person_attributes, session_id)
   end
 
   def self.supported_operations
