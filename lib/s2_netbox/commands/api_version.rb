@@ -1,7 +1,7 @@
 class S2Netbox::Commands::ApiVersion < S2Netbox::ApiRequest
-  include S2Netbox::Helpers
+  provides_command :get_version
 
-  def self.get_version(session_id=nil)
-    S2Netbox.request(S2Netbox::BASIC_ENDPOINT, build_command('GetAPIVersion'), session_id)
+  def self.command_map
+    {:get_version => 'GetAPIVersion'}
   end
 end
