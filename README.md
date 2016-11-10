@@ -19,10 +19,16 @@ Or install it yourself as:
     $ gem install s2_netbox
 
 # Configuration
-## Rails Application
+A call to `S2Netbox.configure` must be made before API requests can be made.  This sets up the controller's base URL as well as the username and password used when logging in.
 
-## Non-rails application
-When using 
+```ruby
+    S2Netbox.configure do |config|
+        config.controller_url = 'https://controller-host'	
+        config.username = 'api'
+        config.password  = '[W2tnwoUdE+/97o8nmi#P77t'
+    end
+```    
+If you're using the S2Netbox gem in a Rails app, this could be placed in an initializer.
 # Usage
 All requests are bundled up into the required XML parcel with the required `COMMAND` and `PARAMS`.
 Once sent to the configured S2 controller, the response is wrapped up in an instance of `S2Netbox::Response` which includes the following accessors:
@@ -58,16 +64,72 @@ The gem supports authentication by username and password only. Although you can 
 
 If your S2 system requires authentication via the `sha_password` and MAC signing, feel free to open a pull request :) Our systems are partitioned and don't use this form of authentication, but we'd love to accept a pull request to add this fucntionaltiy for other users.
 ## Login
-Call:
-      @result = S2Netbox::Authentication.login
-To get an instance of `S2Netbox::Response`
+Login is used to establish a session and obtain a `session_id` which is used in subsequent requests:
+
+      @result = S2Netbox::Commands::Authentication.login
+
+To get an instance of `S2Netbox::Response` which (assuming log in is succesful) will include the `session_id` which can be used in subsequent requests:
+
+    @result.session_id
+
 ## Logout
+All sessions must be logged out. According to the S2 documentation:
+
+> WARNING: Failure to match every call to ‘Login’ with a call to ‘Logout’ will result in the accumulation of session files, consuming potentially large amounts of disk space.
+
+To log out, issue the `logout` command:
+
+    @result = S2Netbox::Commands::Authentication.logout('session_id_from_login')
+
 # Version
+The `Version` module allows you to query the current API version.  This is really just an easy way to validate you're successfully connected to the S2 Controller and have a valid session.
 ## GetVersion
+    @result = S2Netbox::Commands::ApiVersion.get_version('session_id_from_login')
+The result object will contain the version (assuming you've successfully logged in):
+
+    :001 > puts @result.details['APIVERSION']
+    4.1
+
 # Person
+The `Person` module allows you to add and modfy Pereson records.
 ## AddPerson
+The `add_person` method accepts 3 arguments:
+
+1. Hash of person attributes
+1. List of access levels 
+1. List of User Defined Fields
+1. (Optional) session_id
+
+```ruby
+@result = S2Netbox::Commands::Person.add({
+    :person_id => '8a806ed6-0246-49d0-b7a7-ab6402da01e3',
+    :first_name => 'John',
+    :last_name => 'Appleseed',
+    :exp_date => nil,
+    :act_date => '10/10/2016'
+    }, %w(AccessLevel1 AccessLevel2), 'UDF1'
+)
+```
+Both access levels and user defined fields can be specified either as a single string or as an array of strings.
 ## ModifyPerson
-# Other commands
+The `modify_person` method allows you to modify an existing person, and is similar to the `add_person` method, but has an additional argument:
+
+1. Person ID
+1. Hash of person attributes
+1. List of access levels 
+1. List of User Defined Fields
+1. (Optional) session_id
+
+```ruby
+@result = S2Netbox::Commands::Person.modify('8a806ed6-0246-49d0-b7a7-ab6402da01e3', {
+    :first_name => 'John',
+    :last_name => 'Appleseed',
+    :exp_date => nil,
+    :act_date => '10/10/2016'
+}, %w(AccessLevel1 AccessLevel2), 'UDF1')
+```
+Access levels and user defined fields are replaced with those values specified in this call, and aren't additive to existing access levels or user defined fields.
+# Credentials
 
 
 # Development
