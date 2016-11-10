@@ -1,4 +1,4 @@
-class S2Netbox::Authentication < S2Netbox::ApiRequest
+class S2Netbox::Commands::Authentication < S2Netbox::ApiRequest
   include S2Netbox::Helpers
 
   def self.login

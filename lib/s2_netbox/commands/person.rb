@@ -1,4 +1,4 @@
-class S2Netbox::Person < S2Netbox::ApiRequest
+class S2Netbox::Commands::Person < S2Netbox::ApiRequest
   include S2Netbox::Helpers
 
   def self.add(attributes={}, access_levels=[], user_defined_fields=[])

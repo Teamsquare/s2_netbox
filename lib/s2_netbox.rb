@@ -2,6 +2,7 @@ require 'net/http'
 
 require 's2_netbox/version'
 require 's2_netbox/helpers'
+require 's2_netbox/commands'
 
 require 's2_netbox/error'
 require 's2_netbox/errors/configuration_error'
@@ -11,9 +12,9 @@ require 's2_netbox/configuration'
 require 's2_netbox/api_request'
 require 's2_netbox/api_response'
 
-require 's2_netbox/authentication'
-require 's2_netbox/api_version'
-require 's2_netbox/person'
+require 's2_netbox/commands/authentication'
+require 's2_netbox/commands/api_version'
+require 's2_netbox/commands/person'
 
 module S2Netbox
   include S2Netbox::Helpers

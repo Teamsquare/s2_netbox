@@ -24,7 +24,6 @@ describe S2Netbox::Helpers do
       end
     end
   end
-
 end
 
 class DummyClass
