@@ -1,4 +1,4 @@
-class S2Netbox::ApiVersion
+class S2Netbox::ApiVersion < S2Netbox::ApiRequest
   include S2Netbox::Helpers
 
   def self.get_version(session_id=nil)
