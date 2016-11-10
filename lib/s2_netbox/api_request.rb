@@ -29,6 +29,10 @@ class S2Netbox::ApiRequest
     nil
   end
 
+  def self.supported_operations
+    []
+  end
+
   def self.command_for_method(method_name)
     if command_map && command_map[method_name]
       return command_map[method_name]
