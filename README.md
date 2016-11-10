@@ -22,11 +22,11 @@ Or install it yourself as:
 A call to `S2Netbox.configure` must be made before API requests can be made.  This sets up the controller's base URL as well as the username and password used when logging in.
 
 ```ruby
-    S2Netbox.configure do |config|
-        config.controller_url = 'https://controller-host'	
-        config.username = 'api'
-        config.password  = '[W2tnwoUdE+/97o8nmi#P77t'
-    end
+S2Netbox.configure do |config|
+    config.controller_url = 'https://controller-host'	
+    config.username = 'api'
+    config.password  = '[W2tnwoUdE+/97o8nmi#P77t'
+end
 ```    
 If you're using the S2Netbox gem in a Rails app, this could be placed in an initializer.
 # Usage
