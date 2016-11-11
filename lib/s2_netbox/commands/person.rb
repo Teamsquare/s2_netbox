@@ -12,8 +12,6 @@ class S2Netbox::Commands::Person < S2Netbox::ApiRequest
     send_request('ModifyPerson', person_attributes, session_id)
   end
 
-  protected
-
   def self.build_attributes(attributes, access_levels, user_defined_fields)
     hash = map_attributes(attributes)
     hash = build_user_defined_fields(hash, user_defined_fields)
