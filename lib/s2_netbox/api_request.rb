@@ -16,7 +16,16 @@ class S2Netbox::ApiRequest
   def self.method_missing(method_name, *arguments, &block)
     return super unless supported_operations.include?(method_name)
 
-    send_request(command_for_method(method_name), map_attributes(arguments[0]), arguments[1])
+    attributes = arguments[0]
+    session_id = arguments[1]
+
+    if arguments.length == 1 && !arguments[0].is_a?(Hash)
+      # there is only a single argument, and it isn't a hash - assume it is session_id
+      attributes = nil
+      session_id = arguments[0]
+    end
+
+    send_request(command_for_method(method_name), map_attributes(attributes), session_id)
   end
 
   def self.respond_to_missing?(method_name, include_private = false)
@@ -37,7 +46,7 @@ class S2Netbox::ApiRequest
     if command_map && command_map[method_name]
       return command_map[method_name]
     else
-      return "#{method_name.to_s.gsub('_', ' ').titlecase.gsub(' ', '')}#{name.split('::').last}"
+      return "#{method_name.to_s.tr('_', ' ').titlecase.delete(' ')}#{name.split('::').last}"
     end
   end
 
@@ -46,7 +55,7 @@ class S2Netbox::ApiRequest
 
     params.each do |k, v|
       if v.is_a?(Hash)
-        res << "<#{k.to_s}>"
+        res << "<#{k}>"
 
         singular = v[:singular_node_name]
 
@@ -54,9 +63,9 @@ class S2Netbox::ApiRequest
           res << "<#{singular}>#{inner_value}</#{singular}>"
         end
 
-        res << "</#{k.to_s}>"
+        res << "</#{k}>"
       else
-        res << "<#{k.to_s}>#{v}</#{k.to_s}>"
+        res << "<#{k}>#{v}</#{k}>"
       end
     end
 
@@ -70,6 +79,6 @@ class S2Netbox::ApiRequest
   def self.map_attributes(attributes)
     return unless attributes
 
-    attributes.reject { |_,v| blank?(v) }.map { |k, v| [k.to_s.gsub('_', '').upcase, v] }.to_h
+    attributes.reject { |_,v| blank?(v) }.map { |k, v| [k.to_s.delete('_').upcase, v] }.to_h
   end
 end

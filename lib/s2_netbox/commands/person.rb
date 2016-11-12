@@ -12,8 +12,6 @@ class S2Netbox::Commands::Person < S2Netbox::ApiRequest
     send_request('ModifyPerson', person_attributes, session_id)
   end
 
-  protected
-
   def self.build_attributes(attributes, access_levels, user_defined_fields)
     hash = map_attributes(attributes)
     hash = build_user_defined_fields(hash, user_defined_fields)
@@ -24,7 +22,7 @@ class S2Netbox::Commands::Person < S2Netbox::ApiRequest
 
   def self.build_access_level(hash, access_levels)
     unless access_levels.empty?
-      hash['ACCESSLEVELS'] = {:singular_node_name => 'ACCESSLEVEL', :values => access_levels}
+      hash['ACCESSLEVELS'] = {:singular_node_name => 'ACCESSLEVEL', :values => Array.wrap(access_levels)}
     end
 
     hash

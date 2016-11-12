@@ -19,15 +19,15 @@ Gem::Specification.new do |spec|
   spec.executables   = spec.files.grep(%r{^exe/}) { |f| File.basename(f) }
   spec.require_paths = ['lib']
 
-  spec.add_runtime_dependency 'httparty'
-  spec.add_runtime_dependency 'activesupport'
-  spec.add_runtime_dependency 'facets'
+  spec.add_runtime_dependency 'httparty', '~> 0.14'
+  spec.add_runtime_dependency 'activesupport', '~> 4.0'
+  spec.add_runtime_dependency 'facets', '~> 3.1'
 
   spec.add_development_dependency 'bundler', '~> 1.12'
   spec.add_development_dependency 'rake', '~> 10.0'
   spec.add_development_dependency 'rspec', '~> 3.0'
   spec.add_development_dependency 'rspec_junit_formatter', '0.2.2'
   spec.add_development_dependency 'simplecov', '~> 0.7.1'
-  spec.add_development_dependency 'webmock'
-  spec.add_development_dependency 'factory_girl'
+  spec.add_development_dependency 'webmock', '~> 2.1'
+  spec.add_development_dependency 'factory_girl', '~> 4.7'
 end
