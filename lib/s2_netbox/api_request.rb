@@ -16,7 +16,16 @@ class S2Netbox::ApiRequest
   def self.method_missing(method_name, *arguments, &block)
     return super unless supported_operations.include?(method_name)
 
-    send_request(command_for_method(method_name), map_attributes(arguments[0]), arguments[1])
+    attributes = arguments[0]
+    session_id = arguments[1]
+
+    if arguments.length == 1 && !arguments[0].is_a?(Hash)
+      # there is only a single argument, and it isn't a hash - assume it is session_id
+      attributes = nil
+      session_id = arguments[0]
+    end
+
+    send_request(command_for_method(method_name), map_attributes(attributes), session_id)
   end
 
   def self.respond_to_missing?(method_name, include_private = false)
