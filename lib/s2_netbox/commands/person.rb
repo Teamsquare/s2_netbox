@@ -22,7 +22,7 @@ class S2Netbox::Commands::Person < S2Netbox::ApiRequest
 
   def self.build_access_level(hash, access_levels)
     unless access_levels.empty?
-      hash['ACCESSLEVELS'] = {:singular_node_name => 'ACCESSLEVEL', :values => access_levels}
+      hash['ACCESSLEVELS'] = {:singular_node_name => 'ACCESSLEVEL', :values => Array.wrap(access_levels)}
     end
 
     hash
