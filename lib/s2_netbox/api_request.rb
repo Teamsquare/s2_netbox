@@ -10,7 +10,7 @@ class S2Netbox::ApiRequest
   end
 
   def self.send_request(command_name, attributes, session_id=nil)
-    S2Netbox.request(S2Netbox::BASIC_ENDPOINT, build_command(command_name, attributes), session_id)
+    S2Netbox.request(S2Netbox::BASIC_ENDPOINT, build_command(command_name, map_attributes(attributes)), session_id)
   end
 
   def self.method_missing(method_name, *arguments, &block)
@@ -25,7 +25,7 @@ class S2Netbox::ApiRequest
       session_id = arguments[0]
     end
 
-    send_request(command_for_method(method_name), map_attributes(attributes), session_id)
+    send_request(command_for_method(method_name), attributes, session_id)
   end
 
   def self.respond_to_missing?(method_name, include_private = false)
