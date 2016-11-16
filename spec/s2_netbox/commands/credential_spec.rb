@@ -44,4 +44,22 @@ describe S2Netbox::Commands::Credential do
       expect(@result).to be_a(S2Netbox::ApiResponse)
     end
   end
+
+  describe 'remove' do
+    before :each do
+      configure
+
+      stub_request(:post, "https://test-s2.some.net/goforms/nbapi").
+          with(:body => "APIcommand=<NETBOX-API sessionid='session_id'><COMMAND name='RemoveCredential' num='1'><PARAMS><ENCODEDNUM>8232</ENCODEDNUM></PARAMS></COMMAND></NETBOX-API>").
+          to_return(:status => 200, :body => "<NETBOX><RESPONSE command='RemoveCredential' num=\"1\"><CODE>SUCCESS</CODE></RESPONSE></NETBOX>", :headers => {})
+
+      @result = S2Netbox::Commands::Credential.remove({
+                                                          :encoded_num => '8232'
+                                                      }, 'session_id')
+    end
+
+    it 'should be a S2Netbox::ApiResponse' do
+      expect(@result).to be_a(S2Netbox::ApiResponse)
+    end
+  end
 end
