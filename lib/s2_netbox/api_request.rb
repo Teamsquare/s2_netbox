@@ -79,6 +79,6 @@ class S2Netbox::ApiRequest
   def self.map_attributes(attributes)
     return unless attributes
 
-    attributes.reject { |_,v| blank?(v) }.map { |k, v| [k.to_s.delete('_').upcase, v] }.to_h
+    attributes.map { |k, v| [k.to_s.delete('_').upcase, blank?(v) ? '' : v] }.to_h
   end
 end

@@ -63,5 +63,11 @@ describe S2Netbox::ApiRequest do
           {:first_name => 'Michael', :lastname => 'Shimmins', :'ACT_DATE' => '10/10/2016', :'EXPDATE' => '20/12/2016'}
       )).to eq({'FIRSTNAME' => 'Michael', 'LASTNAME' => 'Shimmins', 'ACTDATE' => '10/10/2016', 'EXPDATE' => '20/12/2016'})
     end
+
+    it 'permits treats nil or empty values as empty elements' do
+      expect(S2Netbox::ApiRequest.map_attributes(
+          {:first_name => 'Michael', :lastname => 'Shimmins', :'ACT_DATE' => nil, :'EXPDATE' => ''}
+      )).to eq({'FIRSTNAME' => 'Michael', 'LASTNAME' => 'Shimmins', 'ACTDATE' => '', 'EXPDATE' => ''})
+    end
   end
 end
